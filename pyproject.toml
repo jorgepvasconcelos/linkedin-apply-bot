@@ -6,7 +6,7 @@ authors = ["Jorge Vasconcelos <jorge.r.p.v@hotmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-selenium-toolkit = "^0.0.3"
+selenium-toolkit = "*"
 
 [tool.poetry.dev-dependencies]
 

@@ -25,7 +25,8 @@ class LinkedinApplyBot:
         self.sk.fill(text=PASSWORD, locator=(By.CSS_SELECTOR, '[id="password"]'))
         self.sk.click(locator=(By.CSS_SELECTOR, '[type="submit"]'))
 
-        return self.sk.element_is_present(wait_time=5, locator=(By.CSS_SELECTOR, '.identity-headline'))
+        in_next_page = self.sk.element_is_present(wait_time=5, query_selector='.identity-headline')
+        return in_next_page
 
     def search_jobs(self):
         search_url = 'https://www.linkedin.com/jobs/search'
@@ -35,8 +36,8 @@ class LinkedinApplyBot:
         self.sk.fill(text=LOCATION, locator=(By.CSS_SELECTOR, '[id="jobs-search-box-location-id-ember24"]'))
         self.sk.click(locator=(By.CSS_SELECTOR, '.jobs-search-box__submit-button'))
 
-        return self.sk.element_is_present(wait_time=5, locator=(By.CSS_SELECTOR, '.identity-headline'))
-
+        in_next_page = self.sk.element_is_present(wait_time=5, query_selector='.identity-headline')
+        return in_next_page
 
     def search_jobs2(self):
         search_url = 'https://www.linkedin.com/jobs/search/?keywords=python&location=Portugal&refresh=true'
@@ -46,7 +47,8 @@ class LinkedinApplyBot:
         self.sk.fill(text=LOCATION, locator=(By.CSS_SELECTOR, '[id="jobs-search-box-location-id-ember24"]'))
         self.sk.click(locator=(By.CSS_SELECTOR, '.jobs-search-box__submit-button'))
 
-        return self.sk.element_is_present(wait_time=5, locator=(By.CSS_SELECTOR, '.identity-headline'))
+        in_next_page = self.sk.element_is_present(wait_time=5, query_selector='.identity-headline')
+        return in_next_page
 
 
 if __name__ == '__main__':
@@ -54,7 +56,7 @@ if __name__ == '__main__':
     options.add_argument('--start-maximized')
 
     driver = Chrome(options=options)
-    selenium_kit = SeleniumToolKit(driver=driver)
+    selenium_toolkit = SeleniumToolKit(driver=driver)
 
-    bot = LinkedinApplyBot(selenium_kit=selenium_kit)
+    bot = LinkedinApplyBot(selenium_kit=selenium_toolkit)
     bot.run()
