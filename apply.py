@@ -1,4 +1,5 @@
-import time
+from typing import Callable
+from datetime import datetime
 
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
@@ -9,13 +10,33 @@ from selenium_toolkit import SeleniumToolKit
 from settings import USERNAME, PASSWORD, KEYWORD, LOCATION
 
 
+class StepException(Exception):
+    ...
+
+
 class LinkedinApplyBot:
     def __init__(self, selenium_kit: SeleniumToolKit):
         self.sk = selenium_kit
 
+    @staticmethod
+    def step(func: Callable):
+        start_time = datetime.now()
+        step_name = func.__name__
+        print(f"Start step [{step_name}] at {start_time}")
+
+        success = func()
+        if not success:
+            print(f"Error in step [{step_name}]")
+
+        end_time = datetime.now()
+        print(f"End step [{step_name}] at {end_time} | Duration {end_time - start_time}")
+
     def run(self):
-        self.login()
-        self.search_jobs()
+        if not self.step(self.login):
+            raise StepException("Error in step [login]")
+
+        if not self.step(self.search_jobs):
+            raise StepException("Error in step [search_jobs]")
 
     def login(self):
         login_url = 'https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin'
