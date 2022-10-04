@@ -4,8 +4,8 @@ from datetime import datetime
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-
 from selenium_toolkit import SeleniumToolKit
+from selenium_stealth import stealth
 
 from settings import USERNAME, PASSWORD, KEYWORD, LOCATION
 
@@ -77,6 +77,14 @@ if __name__ == '__main__':
     options.add_argument('--start-maximized')
 
     driver = Chrome(options=options)
+    stealth(driver=driver,
+            languages=["en-US", "en"],
+            vendor="Google Inc.",
+            platform="Win32",
+            webgl_vendor="Intel Inc.",
+            renderer="Intel Iris OpenGL Engine",
+            fix_hairline=True,
+            )
     selenium_toolkit = SeleniumToolKit(driver=driver)
 
     bot = LinkedinApplyBot(selenium_kit=selenium_toolkit)

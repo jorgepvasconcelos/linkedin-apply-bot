@@ -7,6 +7,7 @@ authors = ["Jorge Vasconcelos <jorge.r.p.v@hotmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 selenium-toolkit = "*"
+selenium-stealth = "^1.0.6"
 
 [tool.poetry.dev-dependencies]
 
