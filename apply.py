@@ -32,7 +32,7 @@ class LinkedinApplyBot:
         AutoWait.change_wait_time(range_time=(1, 3))
 
     @staticmethod
-    def step(func: Callable) -> bool:
+    def call_step(func: Callable) -> bool:
         start_time = datetime.now()
         step_name = func.__name__
         print(f"Start step [{step_name}] at {start_time}")
@@ -52,10 +52,13 @@ class LinkedinApplyBot:
             return True
 
     def run(self):
-        if not self.step(self.login):
+        if not self.call_step(self.login):
             raise StepException("Error in step [login]")
 
-        if not self.step(self.search_jobs):
+        if not self.call_step(self.search_jobs):
+            raise StepException("Error in step [search_jobs]")
+
+        if not self.call_step(self.loop_though_jobs_list):
             raise StepException("Error in step [search_jobs]")
 
     def login(self) -> bool:
